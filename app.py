@@ -10,7 +10,8 @@ app = FastAPI()
 
 # Load your pre-trained BERT model and tokenizer
 tokenizer = BertTokenizer.from_pretrained("bert-base-uncased")
-model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=3)
+model = BertForSequenceClassification.from_pretrained("bert-base-uncased", num_labels=2)
+model.load_state_dict(torch.load('bert_sequence_classification_model.pth'))
 
 @app.get("/predict")
 async def predict(text: str = Query(None, min_length=1)):
